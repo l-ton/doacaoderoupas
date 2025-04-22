@@ -1,0 +1,44 @@
+@page "/login"
+@using System.ComponentModel.DataAnnotations
+
+<div class="d-flex justify-content-center align-items-center vh-100 bg-dark">
+    <div class="form-container text-white p-4 rounded" style="min-width: 300px;">
+        <h4 class="text-center mb-4">Login</h4>
+
+        <EditForm Model="@loginModel" OnValidSubmit="HandleLogin">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <InputText class="form-control" @bind-Value="loginModel.Email" placeholder="Email" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Senha</label>
+                <InputText class="form-control" @bind-Value="loginModel.Senha" type="password" placeholder="Senha" />
+            </div>
+
+            <div class="text-center mb-3">
+                <button class="btn btn-primary px-4">Login</button>
+            </div>
+        </EditForm>
+
+        <div class="text-center">
+            <p><a href="#" class="text-info">Esqueci minha senha</a></p>
+            <p>Não possui uma conta? <a href="/cadastro" class="text-info">Cadastre-se aqui</a></p>
+        </div>
+    </div>
+</div>
+
+@code {
+    public class LoginModel
+    {
+        [Required] public string Email { get; set; }
+        [Required] public string Senha { get; set; }
+    }
+
+    LoginModel loginModel = new();
+
+    void HandleLogin() => Console.WriteLine("Login realizado.");
+}

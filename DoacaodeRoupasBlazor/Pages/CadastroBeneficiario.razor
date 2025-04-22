@@ -1,0 +1,51 @@
+@page "/cadastro-beneficiario"
+
+<div class="d-flex justify-content-center align-items-center vh-100 bg-dark">
+    <div class="form-container text-white p-4 rounded" style="min-width: 300px;">
+        <h4 class="text-center mb-4">Cadastro de Beneficiário</h4>
+
+        <EditForm Model="@beneficiario" OnValidSubmit="Salvar">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="mb-3">
+                <label class="form-label">Nome</label>
+                <InputText class="form-control" @bind-Value="beneficiario.Nome" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Nº de Registro</label>
+                <InputText class="form-control" @bind-Value="beneficiario.NumeroRegistro" />
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label">Tipo</label>
+                <select class="form-select" @bind="beneficiario.Tipo">
+                    <option selected disabled>Selecione o tipo...</option>
+                    <option>Física</option>
+                    <option>Jurídica</option>
+                </select>
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary px-4">Salvar</button>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    private Beneficiario beneficiario = new();
+
+    private void Salvar()
+    {
+        // Lógica para salvar beneficiário
+    }
+
+    public class Beneficiario
+    {
+        public string Nome { get; set; }
+        public string NumeroRegistro { get; set; }
+        public string Tipo { get; set; }
+    }
+}

@@ -1,0 +1,62 @@
+@page "/registro-doacoes"
+
+<div class="d-flex justify-content-center align-items-center vh-100 bg-dark">
+    <div class="form-container text-white p-4 rounded shadow" style="min-width: 320px; max-width: 500px; width: 100%;">
+        <h4 class="text-center mb-4">Registro de Doação</h4>
+
+        <EditForm Model="@doacaoModel" OnValidSubmit="HandleDoacao">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="mb-3">
+                <label class="form-label">Data</label>
+                <InputDate class="form-control" @bind-Value="doacaoModel.Data" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Tipo de Beneficiário</label>
+                <InputText class="form-control" @bind-Value="doacaoModel.TipoBeneficiario" placeholder="Ex: ONG, Pessoa Física" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Lavanderia</label>
+                <InputText class="form-control" @bind-Value="doacaoModel.Lavanderia" placeholder="Nome da lavanderia" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">ID do Beneficiário</label>
+                <InputText class="form-control" @bind-Value="doacaoModel.IdBeneficiario" placeholder="Ex: 1234" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">ID do Voluntário</label>
+                <InputText class="form-control" @bind-Value="doacaoModel.IdVoluntario" placeholder="Ex: 5678" />
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label">Ponto de Coleta</label>
+                <InputText class="form-control" @bind-Value="doacaoModel.PontoColeta" placeholder="Ex: Sede Central" />
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary px-4">Registrar</button>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    public class DoacaoModel
+    {
+        public DateTime Data { get; set; } = DateTime.Today;
+        public string TipoBeneficiario { get; set; }
+        public string Lavanderia { get; set; }
+        public string IdBeneficiario { get; set; }
+        public string IdVoluntario { get; set; }
+        public string PontoColeta { get; set; }
+    }
+
+    DoacaoModel doacaoModel = new();
+
+    void HandleDoacao() => Console.WriteLine("Doação registrada.");
+}

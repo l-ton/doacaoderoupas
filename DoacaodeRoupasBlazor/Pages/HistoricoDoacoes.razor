@@ -1,0 +1,108 @@
+@page "/historico-doacoes"
+
+@using Microsoft.AspNetCore.Components.Web
+
+<div class="d-flex justify-content-center align-items-center vh-100 bg-dark">
+    <div class="form-container text-white p-4 rounded shadow" style="min-width: 320px; max-width: 600px; width: 100%;">
+        <h4 class="text-center mb-4">Histórico de Doações</h4>
+
+        <table class="table table-dark table-bordered table-striped text-white">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Data</th>
+                    <th>Origem</th>
+                    <th>Detalhes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>#042</td>
+                    <td>01/11/2024</td>
+                    <td>Criança Esperança</td>
+                    <td><a href="#" @onclick="() => AbrirModal(42)" class="text-info">Expandir</a></td>
+                </tr>
+                <tr>
+                    <td>#046</td>
+                    <td>01/11/2024</td>
+                    <td>Pessoa Física</td>
+                    <td><a href="#" @onclick="() => AbrirModal(46)" class="text-info">Expandir</a></td>
+                </tr>
+                <tr>
+                    <td>#047</td>
+                    <td>01/11/2024</td>
+                    <td>Médicos Sem Fronteiras</td>
+                    <td><a href="#" @onclick="() => AbrirModal(47)" class="text-info">Expandir</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@if (modalVisivel)
+{
+    <div class="modal fade show d-block" style="background-color: rgba(0,0,0,0.5);">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark text-white p-3 rounded">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title">Detalhes da Doação #{doacaoSelecionadaId}</h5>
+                    <button type="button" class="btn-close btn-close-white" aria-label="Close" @onclick="FecharModal"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Beneficiário:</strong> @DetalhesDoacao.Beneficiario</p>
+                    <p><strong>Quantidade de Peças:</strong> @DetalhesDoacao.Quantidade</p>
+                    <p><strong>Data:</strong> @DetalhesDoacao.Data</p>
+                </div>
+                <div class="modal-footer border-0">
+                    <button class="btn btn-danger" @onclick="ExcluirDoacao">Excluir</button>
+                    <button class="btn btn-secondary" @onclick="EditarDoacao">Alterar</button>
+                    <button class="btn btn-outline-light" @onclick="FecharModal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private bool modalVisivel = false;
+    private int doacaoSelecionadaId;
+
+    private DoacaoDetalhes DetalhesDoacao = new();
+
+    private void AbrirModal(int id)
+    {
+        doacaoSelecionadaId = id;
+        // Simulação de dados (aqui você pode buscar no banco)
+        DetalhesDoacao = id switch
+        {
+            42 => new DoacaoDetalhes { Beneficiario = "Criança Esperança", Quantidade = 120, Data = "01/11/2024" },
+            46 => new DoacaoDetalhes { Beneficiario = "Pessoa Física", Quantidade = 45, Data = "01/11/2024" },
+            47 => new DoacaoDetalhes { Beneficiario = "Médicos Sem Fronteiras", Quantidade = 200, Data = "01/11/2024" },
+            _ => new DoacaoDetalhes()
+        };
+        modalVisivel = true;
+    }
+
+    private void FecharModal() => modalVisivel = false;
+
+    private void ExcluirDoacao()
+    {
+        // Lógica de exclusão aqui
+        Console.WriteLine($"Doação #{doacaoSelecionadaId} excluída.");
+        modalVisivel = false;
+    }
+
+    private void EditarDoacao()
+    {
+        // Redirecionar para edição (ou abrir outro modal)
+        Console.WriteLine($"Editar doação #{doacaoSelecionadaId}.");
+        modalVisivel = false;
+    }
+
+    public class DoacaoDetalhes
+    {
+        public string Beneficiario { get; set; }
+        public int Quantidade { get; set; }
+        public string Data { get; set; }
+    }
+}

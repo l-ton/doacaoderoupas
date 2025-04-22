@@ -1,0 +1,41 @@
+@page "/cadastro"
+
+<div class="d-flex justify-content-center align-items-center vh-100 bg-dark">
+    <div class="form-container text-white p-4 rounded" style="min-width: 300px;">
+        <h4 class="text-center mb-4">Cadastro</h4>
+
+        <EditForm Model="@cadastroModel" OnValidSubmit="HandleValidSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="mb-3">
+                <label class="form-label">Nome</label>
+                <InputText class="form-control" @bind-Value="cadastroModel.Nome" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <InputText class="form-control" @bind-Value="cadastroModel.Email" />
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary px-4">Cadastrar</button>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    private CadastroModel cadastroModel = new();
+
+    private void HandleValidSubmit()
+    {
+        // Lógica de cadastro
+    }
+
+    public class CadastroModel
+    {
+        public string Nome { get; set; }
+        public string Email { get; set; }
+    }
+}
